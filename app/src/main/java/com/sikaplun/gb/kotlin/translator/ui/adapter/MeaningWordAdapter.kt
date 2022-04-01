@@ -9,12 +9,13 @@ import com.sikaplun.gb.kotlin.translator.databinding.MeaningWordItemBinding
 
 class MeaningWordAdapter : RecyclerView.Adapter<MeaningWordAdapter.MeaningWordViewHolder>() {
 
-    private val data = ArrayList<DataModel>()
+    private val listWordMeanings = ArrayList<DataModel>()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setMeaningsWord(data: ArrayList<DataModel>) {
-        data.clear()
-        data.addAll(data)
+
+        listWordMeanings.clear()
+        listWordMeanings.addAll(data)
         notifyDataSetChanged()
     }
 
@@ -25,10 +26,10 @@ class MeaningWordAdapter : RecyclerView.Adapter<MeaningWordAdapter.MeaningWordVi
     }
 
     override fun onBindViewHolder(holder: MeaningWordViewHolder, position: Int) {
-        holder.bind(data = data[position])
+        holder.bind(data = listWordMeanings[position])
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount(): Int = listWordMeanings.size
 
     inner class MeaningWordViewHolder(private val binding: MeaningWordItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
