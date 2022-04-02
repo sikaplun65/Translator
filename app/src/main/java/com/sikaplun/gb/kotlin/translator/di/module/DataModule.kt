@@ -2,13 +2,8 @@ package com.sikaplun.gb.kotlin.translator.di.module
 
 
 import com.sikaplun.gb.kotlin.translator.data.repository.MeaningWordRequest
-import dagger.Module
-import dagger.Provides
+import org.koin.dsl.module
 
-
-@Module
-class DataModule {
-    @Provides
-    fun provideMeaningWord(): MeaningWordRequest =
-        MeaningWordRequest(retrofit = RetrofitModule)
+val dataModule = module {
+    single { MeaningWordRequest(apiService = get()) }
 }

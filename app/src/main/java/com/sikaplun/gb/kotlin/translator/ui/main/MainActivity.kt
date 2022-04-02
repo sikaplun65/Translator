@@ -1,48 +1,40 @@
 package com.sikaplun.gb.kotlin.translator.ui.main
 
-import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
-import androidx.activity.viewModels
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sikaplun.gb.kotlin.translator.app.appComponent
 import com.sikaplun.gb.kotlin.translator.data.model.DataModel
 import com.sikaplun.gb.kotlin.translator.databinding.ActivityMainBinding
 import com.sikaplun.gb.kotlin.translator.ui.adapter.MeaningWordAdapter
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private lateinit var adapter: MeaningWordAdapter
+    private val adapter: MeaningWordAdapter by lazy { MeaningWordAdapter() }
 
-    @Inject
-    lateinit var viewModelFactory: MainActivityViewModelFactory
-
-    private val viewModel: MainActivityViewModel by viewModels {viewModelFactory}
-
+    private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        appComponent.inject(this)
-
-        initAdapter()
         initRecyclerView()
         initSearchButton()
         initQueryEditText()
         showMeaningsWord()
-
     }
 
     private fun showMeaningsWord() {
-        viewModel.getMeaningWord().observe(this){
-            if (it != null){
+        viewModel.getMeaningWord().observe(this) {
+            if (it != null) {
                 adapter.setMeaningsWord(it as ArrayList<DataModel>)
                 showLoading(false)
             }
@@ -61,9 +53,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initSearchButton() {
-        binding.searchButton.setOnClickListener {
-            searchForWordMeanings()
-        }
+            binding.searchButton.setOnClickListener {
+                hideKeyboard(this, it)
+                searchForWordMeanings()
+            }
     }
 
     private fun searchForWordMeanings() {
@@ -94,9 +87,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun initAdapter() {
-        adapter = MeaningWordAdapter()
-        adapter.notifyDataSetChanged()
+    private fun hideKeyboard(context: Context, view: View?) {
+        val imm =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 }
