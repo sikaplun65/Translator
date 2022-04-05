@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Translator</string>
     <string name="new_word">New word</string>
+    <string name="image_stub">image</string>
 </resources>
