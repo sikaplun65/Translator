@@ -3,5 +3,12 @@
     <dimen name="fourteen_sp">14sp</dimen>
     <dimen name="sixten_sp">16sp</dimen>
 
+
     <dimen name="sixteen_dp">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="eight_dp">8dp</dimen>
+    <dimen name="four_dp">4dp</dimen>
+
+    <dimen name="hairline">1px</dimen>
+    <dimen name="ten_dp">10dp</dimen>
 </resources>
