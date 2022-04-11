@@ -2,15 +2,20 @@ package com.sikaplun.gb.kotlin.translator.ui.main
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sikaplun.gb.kotlin.translator.data.model.DataModel
+import com.sikaplun.gb.kotlin.translator.HistoryActivity
+import com.sikaplun.gb.kotlin.translator.R
+import com.sikaplun.gb.kotlin.translator.app.App
 import com.sikaplun.gb.kotlin.translator.databinding.ActivityMainBinding
-import com.sikaplun.gb.kotlin.translator.ui.adapter.MeaningWordAdapter
+import com.sikaplun.gb.kotlin.translator.ui.adapters.MeaningWordAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -32,14 +37,35 @@ class MainActivity : AppCompatActivity() {
         showMeaningsWord()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.history_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_history -> {
+                startActivity(Intent(this, HistoryActivity::class.java))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
     private fun showMeaningsWord() {
         viewModel.getMeaningWord().observe(this) {
             if (it != null) {
-                adapter.setMeaningsWord(it as ArrayList<DataModel>)
+                adapter.setMeaningsWord(it)
                 showLoading(false)
             }
-        }
 
+            val word = it[0].text.toString()
+            val meaning = it[0].meanings?.get(0)?.translation?.translation.toString()
+            val applicationContext = applicationContext as App
+
+            viewModel.insertWordToDatabaseLocal(applicationContext, word, meaning)
+        }
     }
 
     private fun initQueryEditText() {

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class DataModel(
     @SerializedName("text")
-    val text: String?,
+    var text: String?,
 
     @SerializedName("meanings")
     val meanings: List<MeaningWord>?

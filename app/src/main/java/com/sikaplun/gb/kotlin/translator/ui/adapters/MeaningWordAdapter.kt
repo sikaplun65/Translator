@@ -1,19 +1,20 @@
-package com.sikaplun.gb.kotlin.translator.ui.adapter
+package com.sikaplun.gb.kotlin.translator.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.sikaplun.gb.kotlin.translator.data.model.DataModel
 import com.sikaplun.gb.kotlin.translator.databinding.MeaningWordItemBinding
 
 class MeaningWordAdapter : RecyclerView.Adapter<MeaningWordAdapter.MeaningWordViewHolder>() {
 
-    private val listWordMeanings = ArrayList<DataModel>()
+    private val listWordMeanings = mutableListOf<DataModel>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setMeaningsWord(data: ArrayList<DataModel>) {
-
+    fun setMeaningsWord(data: List<DataModel>) {
         listWordMeanings.clear()
         listWordMeanings.addAll(data)
         notifyDataSetChanged()
@@ -36,6 +37,12 @@ class MeaningWordAdapter : RecyclerView.Adapter<MeaningWordAdapter.MeaningWordVi
 
         fun bind(data: DataModel) {
             binding.apply {
+                Glide.with(itemView)
+                    .load(data.meanings?.get(0)?.imageUrl)
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .centerCrop()
+                    .into(descriptionImageview)
+
                 wordTextView.text = data.text
                 meaningWordTextView.text = data.meanings?.get(0)?.translation?.translation
             }

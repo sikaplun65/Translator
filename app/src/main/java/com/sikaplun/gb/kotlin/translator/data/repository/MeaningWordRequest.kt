@@ -31,30 +31,3 @@ class MeaningWordRequest(private val apiService: ApiService) : DataSource<List<D
 
     override fun getData(): Observable<List<DataModel>> = listMeaningWord
 }
-
-//class MeaningWordRequest @Inject constructor(private val retrofit: RetrofitModule) :
-//    DataSource<List<DataModel>> {
-//
-//    private val listMeaningWord = BehaviorSubject.create<List<DataModel>>()
-//
-//    fun findMeaningWord(query: String) {
-//        retrofit.provideApiInstance()
-//            .search(query)
-//            .enqueue(object : Callback<List<DataModel>> {
-//                override fun onResponse(
-//                    call: Call<List<DataModel>>,
-//                    response: Response<List<DataModel>>
-//                ) {
-//                    listMeaningWord.onNext(response.body())
-//                }
-//
-//                override fun onFailure(call: Call<List<DataModel>>, t: Throwable) {
-//                    Log.d("Failure", t.message.toString())
-//                }
-//
-//
-//            })
-//    }
-//
-//    override fun getData(): Observable<List<DataModel>> = listMeaningWord
-//}

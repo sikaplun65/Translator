@@ -4,5 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class MeaningWord(
     @SerializedName("translation")
-    val translation: Translation?
+    val translation: Translation?,
+
+    @SerializedName("imageUrl")
+    val imageUrl: String?
 )

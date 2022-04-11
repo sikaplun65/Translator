@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/meaningWordItemLayout"
     android:orientation="vertical"
     android:layout_marginTop="12dp"
@@ -11,7 +13,7 @@
         android:id="@+id/wordTextView"
         android:textStyle="bold"
         android:textColor="@color/green"
-        android:textSize="16sp"
+        android:textSize="@dimen/sixten_sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"/>
@@ -21,8 +23,21 @@
         android:textStyle="italic"
         android:textColor="@color/purple_700"
         android:text="repo_description_text_view"
-        android:textSize="14sp"
+        android:textSize="@dimen/fourteen_sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:id="@+id/description_imageview"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        android:layout_marginEnd="@dimen/sixteen_dp"
+        android:layout_marginTop="@dimen/sixteen_dp"
+        app:srcCompat="@drawable/ic_no_photo_vector"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"
+        tools:visibility="visible"
+        android:contentDescription="@string/image_stub"/>
 
 </LinearLayout>
